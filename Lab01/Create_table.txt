@@ -1,0 +1,47 @@
+CREATE TABLE Rate
+(
+  IdRate INT NOT NULL,
+  RateName VARCHAR(40) NOT NULL,
+  RatePrise INT NOT NULL,
+  PRIMARY KEY (IdRate)
+);
+
+CREATE TABLE Sub
+(
+  IdSub INT NOT NULL,
+  SubName VARCHAR(30) NOT NULL,
+  SubAdress VARCHAR(50) NOT NULL,
+  IdRate INT NOT NULL,
+  PRIMARY KEY (IdSub),
+  FOREIGN KEY (IdRate) REFERENCES Rate(IdRate)
+);
+
+CREATE TABLE Payment
+(
+  IdPayment INT NOT NULL,
+  PeriodOfPay VARCHAR(30) NOT NULL,
+  Summ INT NOT NULL,
+  IdSub INT NOT NULL,
+  PRIMARY KEY (IdPayment),
+  FOREIGN KEY (IdSub) REFERENCES Sub(IdSub)
+);
+
+CREATE TABLE InfoATC
+(
+  idInfoATC INT NOT NULL,
+  DateOfCall VARCHAR(40) NOT NULL,
+  TypeOfCall VARCHAR(30) NOT NULL,
+  StartEndCall INT NOT NULL,
+  IdSub INT NOT NULL,
+  PRIMARY KEY (idInfoATC),
+  FOREIGN KEY (IdSub) REFERENCES Sub(IdSub)
+);
+
+CREATE TABLE Report
+(
+  IdReport INT NOT NULL,
+  DateOfReport DATE NOT NULL,
+  idInfoATC INT NOT NULL,
+  PRIMARY KEY (IdReport),
+  FOREIGN KEY (idInfoATC) REFERENCES InfoATC(idInfoATC)
+);
